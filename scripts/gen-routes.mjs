@@ -1,4 +1,5 @@
-import { generator, getConfig } from "@tanstack/router-generator";
+import { Generator, getConfig } from "@tanstack/router-generator";
 const config = await getConfig({ routesDirectory: "./src/routes", generatedRouteTree: "./src/routeTree.gen.ts" }, process.cwd());
-await generator(config, process.cwd());
+const g = new Generator({ config, root: process.cwd() });
+await g.run();
 console.log("ok");
