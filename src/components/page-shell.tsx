@@ -17,8 +17,10 @@ export function PageShell({ title, description, actions, children }: { title: st
 
 export function EmptyState({ icon: Icon, title, description, action }: { icon: React.ComponentType<{ className?: string }>; title: string; description: string; action?: ReactNode }) {
   return (
-    <div className="glass-card rounded-2xl p-10 text-center">
-      <div className="size-14 rounded-2xl gradient-brand grid place-items-center mx-auto mb-4 text-white shadow-[var(--shadow-glow)]">
+    <div className="glass-panel rounded-3xl p-10 text-center relative overflow-hidden">
+      <div className="absolute -top-24 left-1/2 -translate-x-1/2 size-56 rounded-full gradient-brand opacity-15 blur-3xl" />
+      <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/25 to-transparent" />
+      <div className="size-14 rounded-2xl gradient-brand grid place-items-center mx-auto mb-4 text-primary-foreground shadow-[var(--shadow-glow)] relative">
         <Icon className="size-6" />
       </div>
       <h3 className="font-semibold mb-1.5">{title}</h3>

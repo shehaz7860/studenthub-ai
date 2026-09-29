@@ -108,9 +108,9 @@ function Dashboard() {
         <div className="flex items-center gap-2">
           <div className="relative hidden sm:block">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-muted-foreground" />
-            <input placeholder="Quick search…" className="pl-9 pr-4 h-10 rounded-lg glass-card border-border bg-transparent text-sm focus:outline-none focus:ring-2 focus:ring-brand/30 w-56" />
+            <input placeholder="Quick search…" className="pl-9 pr-4 h-10 rounded-xl glass-input bg-transparent text-sm placeholder:text-muted-foreground/70 focus:outline-none focus:border-primary/45 focus:ring-2 focus:ring-ring/20 w-56 transition-shadow" />
           </div>
-          <Link to="/ai-assistant"><Button className="gradient-brand text-white border-0 shadow-[var(--shadow-glow)] h-10"><Sparkles className="size-4 mr-1.5" /> Ask AI</Button></Link>
+          <Link to="/ai-assistant"><Button className="h-10"><Sparkles className="size-4 mr-1.5" /> Ask AI</Button></Link>
         </div>
       </header>
 
@@ -119,12 +119,13 @@ function Dashboard() {
         <StatCard icon={Flame} label="Study streak" value={`${stats?.streak ?? 0} days`} accent="text-orange-400" />
         <StatCard icon={Clock} label="Today" value={`${todayHours.toFixed(1)}h`} accent="text-brand" />
         <StatCard icon={BookCheck} label="Active tasks" value={String(stats?.activeTasks ?? 0)} accent="text-brand-2" />
-        <div className="glass-card rounded-2xl p-5 gradient-brand text-white relative overflow-hidden">
-          <div className="absolute inset-0 opacity-30 bg-[radial-gradient(circle_at_top_right,white,transparent_60%)]" />
+        <div className="rounded-2xl p-5 gradient-brand text-primary-foreground relative overflow-hidden shadow-[var(--shadow-glow)] border border-primary/30">
+          <div className="absolute inset-0 opacity-25 bg-[radial-gradient(circle_at_top_right,oklch(1_0_0),transparent_60%)]" />
+          <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/50 to-transparent" />
           <div className="relative">
-            <p className="text-white/80 text-xs uppercase tracking-wider font-medium">Next class</p>
-            <p className="text-lg font-bold mt-1 leading-tight truncate">{nextClass ? nextClass.title : "Free!"}</p>
-            <p className="text-white/70 text-[11px] mt-0.5">{nextClass ? `${formatTime(nextClass.start_time as string)} · ${nextClass.location || "—"}` : "No more classes today"}</p>
+            <p className="text-primary-foreground/80 text-xs uppercase tracking-wider font-medium">Next class</p>
+            <p className="text-lg font-bold mt-1 leading-tight truncate font-display">{nextClass ? nextClass.title : "Free!"}</p>
+            <p className="text-primary-foreground/70 text-[11px] mt-0.5">{nextClass ? `${formatTime(nextClass.start_time as string)} · ${nextClass.location || "—"}` : "No more classes today"}</p>
           </div>
         </div>
       </section>
@@ -133,8 +134,9 @@ function Dashboard() {
         {/* Left: Goal + Upcoming */}
         <div className="lg:col-span-2 space-y-4 md:space-y-6">
           {/* Daily goal */}
-          <div className="glass-card rounded-2xl p-6 relative overflow-hidden">
+          <div className="glass-panel rounded-3xl p-6 relative overflow-hidden">
             <div className="absolute -top-20 -right-20 size-60 rounded-full gradient-brand opacity-20 blur-3xl" />
+            <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/25 to-transparent" />
             <div className="relative flex items-center justify-between mb-4">
               <div>
                 <h2 className="font-semibold flex items-center gap-2"><Target className="size-4 text-brand" /> Daily study goal</h2>
@@ -149,8 +151,8 @@ function Dashboard() {
           </div>
 
           {/* Upcoming assignments */}
-          <div className="glass-card rounded-2xl overflow-hidden">
-            <div className="p-5 flex items-center justify-between">
+          <div className="glass-card rounded-3xl overflow-hidden">
+            <div className="p-5 flex items-center justify-between border-b border-border/60">
               <h2 className="font-semibold flex items-center gap-2"><BookCheck className="size-4 text-brand" /> Upcoming assignments</h2>
               <Link to="/assignments" className="text-xs text-brand hover:underline">View all <ArrowRight className="inline size-3" /></Link>
             </div>
@@ -162,8 +164,8 @@ function Dashboard() {
                   const due = a.due_date ? new Date(a.due_date) : null;
                   return (
                     <li key={a.id}>
-                      <Link to="/assignments" className="flex items-center gap-3 p-3 rounded-xl hover:bg-sidebar-accent/50 transition-colors group">
-                        <div className="size-11 rounded-xl border border-border bg-background/40 grid place-items-center text-[10px] font-bold leading-none text-center px-1">
+                      <Link to="/assignments" className="flex items-center gap-3 p-3 rounded-xl hover:bg-foreground/[0.05] transition-colors group">
+                        <div className="size-11 rounded-xl glass-input grid place-items-center text-[10px] font-bold leading-none text-center px-1">
                           {due ? (
                             <>
                               <span className="text-muted-foreground uppercase">{due.toLocaleDateString(undefined, { month: "short" })}</span>
@@ -219,10 +221,12 @@ function Dashboard() {
             )}
           </div>
 
-          <div className="rounded-2xl p-6 relative overflow-hidden border border-border" style={{ background: "linear-gradient(135deg, color-mix(in oklab, var(--color-brand) 20%, transparent), color-mix(in oklab, var(--color-brand-2) 20%, transparent))" }}>
-            <Sparkles className="size-4 text-brand mb-3" />
-            <p className="text-sm italic leading-relaxed">"{quote.q}"</p>
-            <p className="text-[11px] text-muted-foreground mt-2 font-medium">— {quote.a}</p>
+          <div className="glass-panel rounded-3xl p-6 relative overflow-hidden">
+            <div className="absolute -bottom-16 -left-16 size-48 rounded-full gradient-brand opacity-15 blur-3xl" />
+            <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/25 to-transparent" />
+            <Sparkles className="size-4 text-brand mb-3 relative" />
+            <p className="text-sm italic leading-relaxed relative">"{quote.q}"</p>
+            <p className="text-[11px] text-muted-foreground mt-2 font-medium relative">— {quote.a}</p>
           </div>
         </div>
       </div>
@@ -232,20 +236,22 @@ function Dashboard() {
 
 function StatCard({ icon: Icon, label, value, accent }: { icon: React.ComponentType<{ className?: string }>; label: string; value: string; accent?: string }) {
   return (
-    <div className="glass-card rounded-2xl p-4 md:p-5 hover:border-brand/30 transition-colors">
-      <div className="flex items-center justify-between mb-1.5">
+    <div className="glass-card rounded-2xl p-4 md:p-5 hover:border-primary/35">
+      <div className="flex items-center justify-between mb-2.5">
         <p className="text-xs text-muted-foreground">{label}</p>
-        <Icon className={`size-4 ${accent ?? "text-brand"}`} />
+        <div className="size-7 rounded-lg glass-input grid place-items-center">
+          <Icon className={`size-3.5 ${accent ?? "text-brand"}`} />
+        </div>
       </div>
-      <p className="text-xl md:text-2xl font-bold tabular-nums">{value}</p>
+      <p className="text-xl md:text-2xl font-bold tabular-nums font-display">{value}</p>
     </div>
   );
 }
 
 function QuickAction({ to, icon: Icon, label, accent }: { to: string; icon: React.ComponentType<{ className?: string }>; label: string; accent?: boolean }) {
   return (
-    <Link to={to} className={`glass-card rounded-xl p-4 hover:border-brand/40 transition-all group ${accent ? "border-brand/30" : ""}`}>
-      <div className={`size-9 rounded-lg grid place-items-center mb-2 transition-transform group-hover:scale-110 ${accent ? "gradient-brand text-white" : "bg-brand/10 text-brand"}`}>
+    <Link to={to} className={`glass-card lift rounded-2xl p-4 group ${accent ? "border-primary/35" : ""}`}>
+      <div className={`size-9 rounded-xl grid place-items-center mb-2 transition-transform group-hover:scale-110 ${accent ? "gradient-brand text-primary-foreground shadow-[var(--shadow-glow)]" : "glass-input text-brand"}`}>
         <Icon className="size-4" />
       </div>
       <p className="text-xs font-semibold">{label}</p>
