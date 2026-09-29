@@ -1,15 +1,20 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { Link } from "@tanstack/react-router";
-import { Sparkles, BookOpen, Brain, Timer, CalendarCheck, BarChart3, ArrowRight, GraduationCap, MessageSquare, Layers } from "lucide-react";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import {
+  Sparkles, BookOpen, Brain, Timer, CalendarCheck, BarChart3, ArrowRight, GraduationCap,
+  MessageSquare, Layers, Check, FileText, Flame, Calculator, FlaskConical, Globe2, Languages, Atom, Wand2,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { AuroraBackground } from "@/components/aurora-background";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
       { title: "StudentHub AI — Your AI-powered study workspace" },
       { name: "description", content: "All-in-one study platform: assignments, notes, AI tutor, flashcards, focus timer, and goals — built for students." },
-      { property: "og:title", content: "StudentHub AI" },
+      { property: "og:title", content: "StudentHub AI — Your AI-powered study workspace" },
       { property: "og:description", content: "The premium AI-powered workspace for students." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: Index,
@@ -24,53 +29,113 @@ const FEATURES = [
   { icon: BarChart3, title: "Productivity analytics", desc: "Track streaks, study hours, and subject-level performance." },
 ];
 
+const SUBJECTS = [
+  { icon: Calculator, name: "Mathematics" }, { icon: FlaskConical, name: "Chemistry" },
+  { icon: Atom, name: "Physics" }, { icon: Globe2, name: "Geography" },
+  { icon: Languages, name: "Languages" }, { icon: BookOpen, name: "Literature" },
+];
+
+function HeroVisual() {
+  return (
+    <div className="relative mx-auto w-full max-w-md lg:max-w-none">
+      <div className="glass-panel rounded-3xl p-5 shadow-[var(--shadow-float)]">
+        <div className="flex items-center justify-between mb-4">
+          <div className="flex gap-1.5"><span className="size-2.5 rounded-full bg-foreground/15" /><span className="size-2.5 rounded-full bg-foreground/15" /><span className="size-2.5 rounded-full bg-foreground/15" /></div>
+          <span className="text-[11px] text-muted-foreground">Today · 3 tasks</span>
+        </div>
+        <div className="grid grid-cols-3 gap-2.5 mb-4">
+          {[["Streak", "12d", Flame], ["Today", "2.5h", Timer], ["Cards", "48", Layers]].map(([l, v, I]: any) => (
+            <div key={l} className="rounded-2xl border border-border bg-foreground/[0.03] p-3">
+              <I className="size-4 text-primary mb-2" />
+              <div className="text-lg font-bold tabular-nums">{v}</div>
+              <div className="text-[10px] text-muted-foreground">{l}</div>
+            </div>
+          ))}
+        </div>
+        <div className="rounded-2xl border border-border bg-foreground/[0.03] p-4 mb-3">
+          <div className="flex justify-between text-xs mb-2"><span className="font-semibold">Daily goal</span><span className="text-primary">62%</span></div>
+          <div className="h-2 rounded-full bg-foreground/10 overflow-hidden"><div className="h-full w-[62%] gradient-brand rounded-full" /></div>
+        </div>
+        {["Calculus problem set", "Chemistry lab report"].map((t, i) => (
+          <div key={t} className="flex items-center gap-3 py-2.5 border-t border-border first-of-type:border-0">
+            <span className={`size-5 rounded-md grid place-items-center ${i === 0 ? "gradient-brand text-primary-foreground" : "border border-border"}`}>{i === 0 && <Check className="size-3" />}</span>
+            <span className={`text-sm ${i === 0 ? "line-through text-muted-foreground" : ""}`}>{t}</span>
+          </div>
+        ))}
+      </div>
+      <div className="glass-card absolute -bottom-8 -left-4 sm:-left-10 w-64 rounded-2xl p-4 shadow-[var(--shadow-float)] hidden sm:block">
+        <div className="flex items-center gap-2 mb-2">
+          <span className="size-7 rounded-lg gradient-brand grid place-items-center text-primary-foreground"><Sparkles className="size-3.5" /></span>
+          <span className="text-xs font-semibold">AI Tutor</span>
+        </div>
+        <p className="text-xs text-muted-foreground leading-relaxed">Photosynthesis turns light energy into chemical energy stored in glucose…</p>
+      </div>
+      <div className="glass-card absolute -top-5 -right-3 rounded-2xl px-3.5 py-2.5 text-xs font-semibold hidden sm:flex items-center gap-2 shadow-[var(--shadow-float)]">
+        <Brain className="size-4 text-primary" /> Quiz ready · 12 cards
+      </div>
+    </div>
+  );
+}
+
 function Index() {
   return (
-    <div className="min-h-screen bg-background text-foreground overflow-hidden relative">
-      {/* Ambient glow */}
-      <div className="pointer-events-none absolute -top-40 left-1/2 -translate-x-1/2 size-[900px] rounded-full opacity-30 blur-[140px] gradient-brand" />
-      <div className="pointer-events-none absolute top-1/2 -right-40 size-[500px] rounded-full opacity-20 blur-[120px] bg-[oklch(0.7_0.2_320)]" />
+    <div className="min-h-screen bg-background text-foreground overflow-x-hidden relative">
+      <AuroraBackground />
 
-      <header className="relative z-10 flex items-center justify-between px-6 md:px-10 py-6">
-        <Link to="/" className="flex items-center gap-2.5">
-          <div className="size-9 rounded-xl gradient-brand grid place-items-center font-bold text-white shadow-[var(--shadow-glow)]">
-            <GraduationCap className="size-5" />
+      <header className="sticky top-3 z-30 px-4 md:px-8">
+        <nav className="glass-nav mx-auto max-w-6xl flex items-center justify-between rounded-2xl px-4 py-2.5">
+          <Link to="/" className="flex items-center gap-2.5">
+            <div className="size-9 rounded-xl gradient-brand grid place-items-center text-primary-foreground shadow-[var(--shadow-glow)]">
+              <GraduationCap className="size-5" />
+            </div>
+            <span className="text-lg font-bold tracking-tight font-[family-name:var(--font-display)]">StudentHub <span className="gradient-text">AI</span></span>
+          </Link>
+          <div className="hidden md:flex items-center gap-6 text-sm text-muted-foreground">
+            <a href="#features" className="hover:text-foreground transition-colors">Features</a>
+            <a href="#subjects" className="hover:text-foreground transition-colors">Subjects</a>
+            <a href="#ai" className="hover:text-foreground transition-colors">AI tools</a>
           </div>
-          <span className="text-lg font-bold tracking-tight">StudentHub <span className="gradient-text">AI</span></span>
-        </Link>
-        <div className="flex items-center gap-2">
-          <Link to="/auth"><Button variant="ghost" size="sm">Sign in</Button></Link>
-          <Link to="/auth"><Button size="sm" className="gradient-brand text-white border-0 shadow-[var(--shadow-glow)]">Get started</Button></Link>
-        </div>
+          <div className="flex items-center gap-2">
+            <Link to="/auth"><Button variant="ghost" size="sm">Sign in</Button></Link>
+            <Link to="/auth"><Button size="sm">Get started</Button></Link>
+          </div>
+        </nav>
       </header>
 
       <main className="relative z-10">
-        <section className="px-6 md:px-10 pt-16 md:pt-24 pb-20 max-w-6xl mx-auto text-center">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full glass-card text-xs font-medium text-muted-foreground mb-6 animate-fade-in-up">
-            <Sparkles className="size-3 text-brand" />
-            Built for high school & college students
+        <section className="px-6 md:px-10 pt-16 md:pt-24 pb-24 max-w-6xl mx-auto grid lg:grid-cols-[1.1fr_1fr] gap-16 items-center">
+          <div className="text-center lg:text-left">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full glass-card text-xs font-medium text-muted-foreground mb-6 animate-fade-in-up">
+              <Sparkles className="size-3 text-primary" /> Built for high school & college students
+            </div>
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-balance leading-[1.05] mb-6 animate-fade-in-up [animation-delay:80ms]">
+              Your AI-powered <span className="gradient-text">study workspace</span>
+            </h1>
+            <p className="text-base md:text-lg text-muted-foreground max-w-xl mx-auto lg:mx-0 leading-relaxed mb-9 animate-fade-in-up [animation-delay:160ms]">
+              Assignments, notes, flashcards, timetable, and an AI tutor — all in one premium workspace designed to help you focus, study smarter, and stay on top of every deadline.
+            </p>
+            <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3 animate-fade-in-up [animation-delay:240ms]">
+              <Link to="/auth"><Button size="lg">Start studying free <ArrowRight className="size-4 ml-1" /></Button></Link>
+              <Link to="/auth"><Button size="lg" variant="outline">Sign in</Button></Link>
+            </div>
+            <div className="mt-8 flex flex-wrap justify-center lg:justify-start gap-x-5 gap-y-2 text-xs text-muted-foreground">
+              {["Free to start", "No credit card", "Works on any device"].map((t) => (
+                <span key={t} className="flex items-center gap-1.5"><Check className="size-3.5 text-primary" />{t}</span>
+              ))}
+            </div>
           </div>
-          <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight text-balance mb-6 animate-fade-in-up [animation-delay:80ms]">
-            Your AI-powered <span className="gradient-text">study workspace</span>
-          </h1>
-          <p className="text-base md:text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed mb-10 animate-fade-in-up [animation-delay:160ms]">
-            Assignments, notes, flashcards, timetable, and an AI tutor — all in one premium workspace designed to help you focus, study smarter, and stay on top of every deadline.
-          </p>
-          <div className="flex items-center justify-center gap-3 animate-fade-in-up [animation-delay:240ms]">
-            <Link to="/auth">
-              <Button size="lg" className="gradient-brand text-white border-0 shadow-[var(--shadow-glow)] h-12 px-6">
-                Start studying free <ArrowRight className="size-4 ml-1" />
-              </Button>
-            </Link>
-            <Link to="/auth"><Button size="lg" variant="outline" className="h-12 px-6 glass-card">Sign in</Button></Link>
-          </div>
+          <div className="animate-fade-in-up [animation-delay:200ms]"><HeroVisual /></div>
         </section>
 
-        <section className="px-6 md:px-10 max-w-6xl mx-auto pb-24">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
-            {FEATURES.map((f, i) => (
-              <div key={f.title} className="glass-card rounded-2xl p-6 hover:border-brand/40 transition-all animate-fade-in-up" style={{ animationDelay: `${i * 60}ms` }}>
-                <div className="size-11 rounded-xl bg-brand/10 border border-brand/20 grid place-items-center text-brand mb-4">
+        <section id="features" className="px-6 md:px-10 max-w-6xl mx-auto pb-24 scroll-mt-24">
+          <div className="text-center max-w-2xl mx-auto mb-12 reveal">
+            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-primary mb-3">Everything in one place</p>
+            <h2 className="text-3xl md:text-4xl font-bold">Stop juggling five apps</h2>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5">
+            {FEATURES.map((f) => (
+              <div key={f.title} className="glass-card lift reveal rounded-2xl p-6">
+                <div className="size-11 rounded-xl bg-primary/10 border border-primary/20 grid place-items-center text-primary mb-4">
                   <f.icon className="size-5" />
                 </div>
                 <h3 className="font-semibold mb-1.5">{f.title}</h3>
@@ -80,17 +145,61 @@ function Index() {
           </div>
         </section>
 
+        <section id="subjects" className="px-6 md:px-10 max-w-6xl mx-auto pb-24 scroll-mt-24">
+          <div className="glass-panel rounded-3xl p-8 md:p-12 grid lg:grid-cols-2 gap-10 items-center reveal">
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-primary mb-3">Subjects & notes</p>
+              <h2 className="text-3xl font-bold mb-4">Organized by subject, from day one</h2>
+              <p className="text-muted-foreground leading-relaxed mb-6">Color-code every class, keep notes and lessons together, and see exactly where your time goes.</p>
+              <ul className="space-y-2.5 text-sm">
+                {["Markdown notes with tags and autosave", "Past papers grouped by exam", "Files stored securely per subject"].map((t) => (
+                  <li key={t} className="flex items-center gap-2.5"><FileText className="size-4 text-primary" />{t}</li>
+                ))}
+              </ul>
+            </div>
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+              {SUBJECTS.map((s) => (
+                <div key={s.name} className="lift rounded-2xl border border-border bg-foreground/[0.03] p-4 text-center">
+                  <s.icon className="size-6 mx-auto mb-2 text-primary" />
+                  <span className="text-xs font-medium">{s.name}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section id="ai" className="px-6 md:px-10 max-w-6xl mx-auto pb-24 scroll-mt-24">
+          <div className="grid lg:grid-cols-2 gap-10 items-center">
+            <div className="glass-card rounded-3xl p-6 reveal order-2 lg:order-1">
+              <div className="rounded-2xl bg-foreground/[0.04] border border-border p-3.5 text-sm mb-3 ml-10">Explain derivatives like I'm 15</div>
+              <div className="flex gap-3">
+                <span className="size-8 shrink-0 rounded-xl gradient-brand grid place-items-center text-primary-foreground"><Sparkles className="size-4" /></span>
+                <div className="rounded-2xl border border-primary/20 bg-primary/[0.06] p-3.5 text-sm leading-relaxed">
+                  A derivative tells you how fast something changes. If you're driving, your speed is the derivative of your position…
+                </div>
+              </div>
+              <div className="mt-4 flex flex-wrap gap-2">
+                {["Summarize notes", "Make flashcards", "Revision plan"].map((c) => (
+                  <span key={c} className="text-xs rounded-full border border-border px-3 py-1 text-muted-foreground">{c}</span>
+                ))}
+              </div>
+            </div>
+            <div className="reveal order-1 lg:order-2">
+              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-primary mb-3">AI tools</p>
+              <h2 className="text-3xl md:text-4xl font-bold mb-4">A patient tutor, any hour</h2>
+              <p className="text-muted-foreground leading-relaxed mb-6">Ask questions, turn notes into flashcards, and get step-by-step explanations tailored to your level.</p>
+              <Link to="/auth"><Button variant="outline"><Wand2 className="size-4 mr-1.5" />Try the AI assistant</Button></Link>
+            </div>
+          </div>
+        </section>
+
         <section className="px-6 md:px-10 max-w-4xl mx-auto pb-24 text-center">
-          <div className="glass-card rounded-3xl p-10 md:p-14 relative overflow-hidden">
-            <div className="pointer-events-none absolute -top-20 -right-20 size-60 rounded-full gradient-brand opacity-20 blur-3xl" />
-            <Brain className="size-10 mx-auto mb-4 text-brand" />
+          <div className="glass-panel reveal rounded-3xl p-10 md:p-14 relative overflow-hidden">
+            <div className="pointer-events-none absolute -top-20 -right-20 size-60 rounded-full gradient-brand opacity-25 blur-3xl" />
+            <Brain className="size-10 mx-auto mb-4 text-primary" />
             <h2 className="text-2xl md:text-3xl font-bold mb-3">Ready to study smarter?</h2>
             <p className="text-muted-foreground mb-6">Join thousands of students already using StudentHub AI. Free to start, no credit card required.</p>
-            <Link to="/auth">
-              <Button size="lg" className="gradient-brand text-white border-0 shadow-[var(--shadow-glow)] h-12 px-8">
-                Create your account <ArrowRight className="size-4 ml-1" />
-              </Button>
-            </Link>
+            <Link to="/auth"><Button size="lg">Create your account <ArrowRight className="size-4 ml-1" /></Button></Link>
           </div>
         </section>
 
