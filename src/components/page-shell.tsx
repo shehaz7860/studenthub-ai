@@ -3,10 +3,10 @@ import type { ReactNode } from "react";
 export function PageShell({ title, description, actions, children }: { title: string; description?: string; actions?: ReactNode; children: ReactNode }) {
   return (
     <div className="p-4 md:p-8 max-w-7xl mx-auto pb-24 md:pb-8 animate-fade-in-up">
-      <header className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 md:mb-8">
+      <header className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-6 md:mb-8 pb-5 border-b border-border">
         <div>
           <h1 className="text-2xl md:text-3xl font-bold tracking-tight">{title}</h1>
-          {description && <p className="text-sm text-muted-foreground mt-1">{description}</p>}
+          {description && <p className="text-sm text-muted-foreground mt-1.5 max-w-xl">{description}</p>}
         </div>
         {actions && <div className="flex items-center gap-2">{actions}</div>}
       </header>
