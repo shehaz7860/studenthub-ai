@@ -246,3 +246,11 @@
   transition: transform 0.25s cubic-bezier(0.16,1,0.3,1), border-color 0.25s, box-shadow 0.25s;
   &:hover { transform: translateY(-4px); border-color: color-mix(in oklab, var(--primary) 40%, transparent); box-shadow: var(--shadow-float); }
 }
+
+/* Depth & specular highlights */
+.glass-card, .glass-panel { position: relative; isolation: isolate; }
+.glass-card::before { content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none; z-index: -1;
+  background: radial-gradient(120% 60% at 0% 0%, oklch(1 0 0 / 7%), transparent 55%); }
+@media (hover: hover) {
+  .glass-card:hover { transform: perspective(1000px) translateY(-3px) rotateX(1.2deg); }
+}
