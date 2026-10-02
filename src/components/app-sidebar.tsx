@@ -55,7 +55,7 @@ export function AppSidebar() {
   return (
     <aside className="hidden md:flex w-64 shrink-0 flex-col glass-panel border-r border-sidebar-border h-screen sticky top-0">
       <div className="px-5 py-5 flex items-center gap-2.5">
-        <div className="size-9 rounded-xl gradient-brand grid place-items-center text-white shadow-[var(--shadow-glow)]">
+        <div className="size-9 rounded-xl gradient-brand grid place-items-center text-primary-foreground shadow-[var(--shadow-glow)]">
           <GraduationCap className="size-5" />
         </div>
         <div className="leading-tight">
@@ -77,10 +77,10 @@ export function AppSidebar() {
                   <li key={it.to}>
                     <Link
                       to={it.to}
-                      className={`flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-all ${
+                      className={`group relative flex items-center gap-3 px-3 py-2 rounded-xl text-sm transition-all duration-300 ${
                         active
-                          ? "bg-sidebar-accent text-foreground font-medium shadow-sm"
-                          : "text-muted-foreground hover:bg-sidebar-accent/50 hover:text-foreground"
+                          ? "glass-nav text-foreground font-medium before:absolute before:left-0 before:top-1/2 before:-translate-y-1/2 before:h-5 before:w-[3px] before:rounded-full before:bg-[image:var(--gradient-brand)]"
+                          : "text-muted-foreground hover:bg-sidebar-accent/50 hover:text-foreground hover:translate-x-0.5"
                       }`}
                     >
                       <Icon className={`size-4 ${active ? "text-brand" : ""}`} />
@@ -97,7 +97,7 @@ export function AppSidebar() {
 
       <div className="p-3 border-t border-sidebar-border">
         <div className="flex items-center gap-3 p-2 rounded-lg hover:bg-sidebar-accent/40 transition-colors">
-          <div className="size-9 rounded-full gradient-brand grid place-items-center text-white text-xs font-bold shrink-0 overflow-hidden">
+          <div className="size-9 rounded-full gradient-brand grid place-items-center text-primary-foreground text-xs font-bold shrink-0 overflow-hidden">
             {profile?.avatar_url ? <img src={profile.avatar_url} alt="" className="size-9 rounded-full object-cover" /> : initials}
           </div>
           <div className="flex-1 min-w-0">
@@ -126,14 +126,14 @@ export function MobileNav() {
     { to: "/timer" as const, icon: Timer, label: "Focus" },
   ];
   return (
-    <nav className="md:hidden fixed bottom-0 inset-x-0 z-40 glass-panel border-t border-border px-2 py-2">
+    <nav className="md:hidden fixed bottom-3 inset-x-3 z-40 glass-nav rounded-2xl px-2 py-1.5">
       <ul className="grid grid-cols-5">
         {items.map((it) => {
           const active = pathname === it.to;
           const Icon = it.icon;
           return (
             <li key={it.to}>
-              <Link to={it.to} className={`flex flex-col items-center gap-0.5 py-1.5 rounded-md text-[10px] ${active ? "text-brand" : "text-muted-foreground"}`}>
+              <Link to={it.to} className={`flex flex-col items-center gap-0.5 py-1.5 rounded-xl text-[10px] transition-all ${active ? "text-brand bg-sidebar-accent/60" : "text-muted-foreground"}`}>
                 <Icon className="size-5" />
                 {it.label}
               </Link>
