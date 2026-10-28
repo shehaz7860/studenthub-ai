@@ -113,6 +113,8 @@ function RootShell({ children }: { children: ReactNode }) {
       <head>
         <HeadContent />
         <script async src="https://www.googletagmanager.com/gtag/js?id=G-NQZQH0LN6V" />
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1241767061749783"
+          crossorigin="anonymous" />
         <script
           dangerouslySetInnerHTML={{
             __html: `window.dataLayer = window.dataLayer || [];
