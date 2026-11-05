@@ -3,6 +3,7 @@ import {
   Outlet,
   Link,
   createRootRouteWithContext,
+  type ErrorComponentProps,
   useRouter,
   HeadContent,
   Scripts,
@@ -36,7 +37,7 @@ function NotFoundComponent() {
   );
 }
 
-function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
+function ErrorComponent({ error, reset }: ErrorComponentProps) {
   console.error(error);
   const router = useRouter();
   useEffect(() => {
@@ -114,7 +115,7 @@ function RootShell({ children }: { children: ReactNode }) {
         <HeadContent />
         <script async src="https://www.googletagmanager.com/gtag/js?id=G-NQZQH0LN6V" />
         <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1241767061749783"
-          crossorigin="anonymous" />
+          crossOrigin="anonymous" />
         <script
           dangerouslySetInnerHTML={{
             __html: `window.dataLayer = window.dataLayer || [];
