@@ -1,10 +1,17 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { useEffect, useRef } from "react";
 import {
   Sparkles, BookOpen, Brain, Timer, CalendarCheck, BarChart3, ArrowRight, GraduationCap,
   MessageSquare, Layers, Check, FileText, Flame, Calculator, FlaskConical, Globe2, Languages, Atom, Wand2,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { AuroraBackground } from "@/components/aurora-background";
+
+declare global {
+  interface Window {
+    adsbygoogle?: Array<Record<string, unknown>>;
+  }
+}
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -77,6 +84,31 @@ function HeroVisual() {
   );
 }
 
+function AdSenseBanner() {
+  const pushed = useRef(false);
+
+  useEffect(() => {
+    if (pushed.current) return;
+    pushed.current = true;
+    window.adsbygoogle = window.adsbygoogle || [];
+    window.adsbygoogle.push({});
+  }, []);
+
+  return (
+    <section aria-label="Advertisement" className="px-4 md:px-10 pb-16">
+      <div className="mx-auto max-w-6xl flex flex-col items-center gap-2">
+        <span className="text-[10px] uppercase tracking-wider text-muted-foreground">Advertisement</span>
+        <ins
+          className="adsbygoogle"
+          style={{ display: "inline-block", width: 728, height: 90, maxWidth: "100%" }}
+          data-ad-client="ca-pub-1241767061749783"
+          data-ad-slot="4360290012"
+        />
+      </div>
+    </section>
+  );
+}
+
 function Index() {
   return (
     <div className="min-h-screen bg-background text-foreground overflow-x-hidden relative">
@@ -126,6 +158,8 @@ function Index() {
           </div>
           <div className="animate-fade-in-up [animation-delay:200ms]"><HeroVisual /></div>
         </section>
+
+        <AdSenseBanner />
 
         <section id="features" className="px-6 md:px-10 max-w-6xl mx-auto pb-24 scroll-mt-24">
           <div className="text-center max-w-2xl mx-auto mb-12 reveal">
